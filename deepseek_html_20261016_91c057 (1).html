@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Исследование здоровья и образа жизни студентов</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
+        h1, h2, h3 { color: #2c3e50; }
+        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .question { margin-bottom: 15px; padding: 10px; background-color: #f9f9f9; border-radius: 5px; }
+        .question label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .options { display: flex; flex-direction: column; gap: 5px; }
+        .options label { font-weight: normal; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        input[type="text"], input[type="number"], select, textarea, input[type="time"] { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #27ae60; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; margin-top: 20px; }
+        button:hover { background-color: #219150; }
+        #results { margin-top: 30px; padding: 20px; background-color: #e8f8f5; border-left: 5px solid #27ae60; display: none; }
+        .contact-info { margin-top: 20px; font-weight: bold; color: #d35400; }
+        .note { font-size: 0.9em; color: #7f8c8d; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Исследование здоровья и образа жизни студентов</h1>
+
+    <div class="section">
+        <h2>Информированное согласие</h2>
+        <p>Уважаемый участник! Приглашаем вас принять участие в исследовании, посвященном изучению здоровья, стресса и образа жизни студентов. Опрос является анонимным. Все полученные данные будут использоваться исключительно в обобщенном виде в научных целях.</p>
+        <p>Участие является добровольным. Вы можете прервать заполнение анкеты в любой момент. После ознакомления с результатами вы можете связаться с исследователем для получения консультации по номеру телефона: <strong>+375292873195</strong>.</p>
+        <div class="question">
+            <label><input type="checkbox" id="consent" required> Я ознакомлен(а) с условиями и даю согласие на участие в исследовании.</label>
+        </div>
+    </div>
+
+    <form id="surveyForm">
+
+        <!-- ОБЩАЯ ИНФОРМАЦИЯ -->
+        <div class="section">
+            <h2>Общая информация</h2>
+
+            <div class="question">
+                <label for="gender">Ваш пол:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">-- Выберите --</option>
+                    <option value="Мужской">Мужской</option>
+                    <option value="Женский">Женский</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="age">Ваш возраст (полных лет):</label>
+                <input type="number" id="age" name="age" min="15" max="60" required>
+            </div>
+
+            <div class="question">
+                <label for="faculty">Укажите ваш факультет:</label>
+                <input type="text" id="faculty" name="faculty" required>
+            </div>
+
+            <div class="question">
+                <label for="specialty">Ваша специальность:</label>
+                <input type="text" id="specialty" name="specialty" placeholder="Например: Лечебное дело, Психология и т.д." required>
+            </div>
+
+            <div class="question">
+                <label for="course">Курс обучения:</label>
+                <select id="course" name="course" required>
+                    <option value="">-- Выберите --</option>
+                    <option value="1 курс">1 курс</option>
+                    <option value="2 курс">2 курс</option>
+                    <option value="3 курс">3 курс</option>
+                    <option value="4 курс">4 курс</option>
+                    <option value="5 курс">5 курс</option>
+                    <option value="6 курс">6 курс</option>
+                    <option value="Магистратура">Магистратура</option>
+                    <option value="Аспирантура">Аспирантура</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="education_form">Форма обучения:</label>
+                <select id="education_form" name="education_form" required>
+                    <option value="">-- Выберите --</option>
+                    <option value="Бюджетная">Бюджетная</option>
+                    <option value="Платная">Платная</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="employment">Наличие работы:</label>
+                <select id="employment" name="employment" required>
+                    <option value="">-- Выберите --</option>
+                    <option value="Не работаю">Не работаю</option>
+                    <option value="Работаю неполный день (подработка)">Работаю неполный день (подработка)</option>
+                    <option value="Работаю полный день">Работаю полный день</option>
+                    <option value="Работаю по выходным / по сменам">Работаю по выходным / по сменам</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="night_shifts">Наличие ночных смен на работе/учёбе:</label>
+                <select id="night_shifts" name="night_shifts" required>
+                    <option value="">-- Выберите --</option>
+                    <option value="Нет">Нет</option>
+                    <option value="Да, редко (несколько раз в месяц)">Да, редко (несколько раз в месяц)</option>
+                    <option value="Да, регулярно (1-2 раза в неделю)">Да, регулярно (1-2 раза в неделю)</option>
+                    <option value="Да, часто (3 и более раз в неделю)">Да, часто (3 и более раз в неделю)</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="chronic">Имеется ли у вас хроническое заболевание, требующее постоянного приема лекарств?</label>
+                <select id="chronic" name="chronic" required>
+                    <option value="Нет">Нет</option>
+                    <option value="Да">Да</option>
+                </select>
+                <input type="text" id="chronic_details" name="chronic_details" placeholder="Если да, укажите какое" style="margin-top: 10px;">
+            </div>
+
+            <div class="question">
+                <label for="bad_habits">Наличие вредных привычек (курение, алкоголь и т.д.):</label>
+                <input type="text" id="bad_habits" name="bad_habits" placeholder="Опишите, если есть">
+            </div>
+
+            <div class="question">
+                <label for="energy_drinks">Как часто вы употребляете энергетики?</label>
+                <select id="energy_drinks" name="energy_drinks" required>
+                    <option value="Не употребляю">Не употребляю</option>
+                    <option value="1 раз в неделю">1 раз в неделю</option>
+                    <option value="2-3 раза в неделю">2-3 раза в неделю</option>
+                    <option value="Ежедневно">Ежедневно</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="internet_time">Сколько времени вы проводите в интернете (в сутки)?</label>
+                <select id="internet_time" name="internet_time" required>
+                    <option value="Менее 1 часа">Менее 1 часа</option>
+                    <option value="1-3 часа">1-3 часа</option>
+                    <option value="3-5 часов">3-5 часов</option>
+                    <option value="Более 5 часов">Более 5 часов</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="gadgets_before_sleep">Пользуетесь ли вы гаджетами перед сном?</label>
+                <select id="gadgets_before_sleep" name="gadgets_before_sleep" required>
+                    <option value="Да">Да</option>
+                    <option value="Нет">Нет</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="gadgets_1h">Пользуетесь ли вы гаджетами за час до сна?</label>
+                <select id="gadgets_1h" name="gadgets_1h" required>
+                    <option value="Да">Да</option>
+                    <option value="Нет">Нет</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- PSS-14 -->
+        <div class="section">
+            <h2>Шкала воспринимаемого стресса (PSS-14)</h2>
+            <p class="note">Оцените, как часто за последний месяц вы испытывали следующие состояния (1 – Никогда, 5 – Очень часто).</p>
+            <div id="pss_questions"></div>
+        </div>
+
+        <!-- HADS -->
+        <div class="section">
+            <h2>Госпитальная шкала тревоги и депрессии (HADS)</h2>
+            <p class="note">Выберите вариант ответа, который наиболее соответствует вашему состоянию.</p>
+            <h3>Часть I (Тревога)</h3>
+            <div id="hads_anxiety"></div>
+            <h3>Часть II (Депрессия)</h3>
+            <div id="hads_depression"></div>
+        </div>
+
+        <!-- ISI -->
+        <div class="section">
+            <h2>Индекс тяжести бессонницы (ISI)</h2>
+            <p class="note">Оцените тяжесть проблем со сном за последние 2 недели (0 – нет, 4 – очень сильные).</p>
+            <div id="isi_questions"></div>
+        </div>
+
+        <!-- HPLP-II -->
+        <div class="section">
+            <h2>Профиль здорового образа жизни (HPLP-II)</h2>
+            <p class="note">Оцените, насколько вы согласны с утверждениями (1 – не согласен, 4 – полностью согласен).</p>
+            <div id="hplp_questions"></div>
+        </div>
+
+        <!-- PSQI -->
+        <div class="section">
+            <h2>Питтсбургский опросник сна (PSQI)</h2>
+            <p class="note">Следующие вопросы касаются вашего обычного режима сна в течение последнего месяца.</p>
+            <div id="psqi_questions"></div>
+        </div>
+
+        <button type="submit" id="submitBtn">Завершить и получить результаты</button>
+    </form>
+
+    <div id="results">
+        <h2>Ваши результаты</h2>
+        <div id="resultsContent"></div>
+        <div class="contact-info">
+            <p>Если вы хотите получить консультацию по результатам исследования, пожалуйста, свяжитесь с исследователем по телефону: <strong>+375292873195</strong></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- ДАННЫЕ ДЛЯ ГЕНЕРАЦИИ ВОПРОСОВ ---
+    const pssQuestions = ["вы расстраивались из-за того, что происходило неожиданно?","вы чувствовали, что не способны контролировать важные моменты своей жизни?","вы нервничали и испытывали стресс?","вы успешно справлялись с нервировавшими вас жизненными трудностями?","вы эффективно справлялись с важными изменениями, происходящими в вашей жизни?","вы чувствовали уверенность в своей способности справляться с личными проблемами?","вы чувствовали, что всё идет так, как это нужно вам?","вы обнаруживали, что не можете справиться со всем, что вам приходилось делать?","вы могли контролировать свою раздражительность?","вы чувствовали, что находитесь на вершине успеха?","вы злились из-за того, что происходило без контроля с вашей стороны?","вы ловили себя на мыслях о том, что вам предстоит выполнить?","вы могли контролировать то, на что тратите свое время?","вы чувствовали, что вам не преодолеть всех скопившихся трудностей?"];
+    const hadsAnxietyQuestions = [{q:"1. Я испытываю напряжение, мне не по себе",opts:["[3] все время","[2] часто","[1] время от времени, иногда","[0] совсем не испытываю"]},{q:"2. Я испытываю страх, кажется, что что-то ужасное может вот-вот случиться",opts:["[3] определенно это так, и страх очень велик","[2] да, это так, но страх не очень велик","[1] иногда, но это меня не беспокоит","[0] совсем не испытываю"]},{q:"3. Беспокойные мысли крутятся у меня в голове",opts:["[3] постоянно","[2] большую часть времени","[1] время от времени и не так часто","[0] только иногда"]},{q:"4. Я легко могу присесть и расслабиться",opts:["[0] определенно, это так","[1] наверно, это так","[2] лишь изредка, это так","[3] совсем не могу"]},{q:"5. Я испытываю внутреннее напряжение или дрожь",opts:["[0] совсем не испытываю","[1] иногда","[2] часто","[3] очень часто"]},{q:"6. Я испытываю неусидчивость, мне постоянно нужно двигаться",opts:["[3] определенно, это так","[2] наверно, это так","[1] лишь в некоторой степени, это так","[0] совсем не испытываю"]},{q:"7. У меня бывает внезапное чувство паники",opts:["[3] очень часто","[2] довольно часто","[1] не так уж часто","[0] совсем не бывает"]}];
+    const hadsDepressionQuestions = [{q:"1. То, что приносило мне большое удовольствие, и сейчас вызывает у меня такое же чувство",opts:["[0] определенно, это так","[1] наверное, это так","[2] лишь в очень малой степени, это так","[3] это совсем не так"]},{q:"2. Я способен рассмеяться и увидеть в том или ином событии смешное",opts:["[0] определенно, это так","[1] наверное, это так","[2] лишь в очень малой степени, это так","[3] совсем не способен"]},{q:"3. Я испытываю бодрость",opts:["[3] совсем не испытываю","[2] очень редко","[1] иногда","[0] практически все время"]},{q:"4. Мне кажется, что я стал все делать очень медленно",opts:["[3] практически все время","[2] часто","[1] иногда","[0] совсем нет"]},{q:"5. Я не слежу за своей внешностью",opts:["[3] определенно, это так","[2] я не уделяю этому столько времени, сколько нужно","[1] может быть, я стал меньше уделять этому времени","[0] я слежу за собой так же, как и раньше"]},{q:"6. Я считаю, что мои дела (занятия, увлечения) могут принести мне чувство удовлетворения",opts:["[0] точно так же, как и обычно","[1] да, но не в той степени, как раньше","[2] значительно меньше, чем обычно","[3] совсем так не считаю"]},{q:"7. Я могу получить удовольствие от хорошей книги, радио- или телепрограммы",opts:["[0] часто","[1] иногда","[2] редко","[3] очень редко"]}];
+    const isiQuestions = ["Трудности с засыпанием","Трудности с поддержанием сна — частые ночные пробуждения","Слишком раннее окончательное пробуждение","Насколько вы удовлетворены/неудовлетворены вашим нынешним сном?","Насколько, по вашему мнению, ваши проблемы со сном заметны для окружающих и ухудшают качество вашей жизни?","Насколько вы обеспокоены/встревожены вашими нынешними проблемами со сном?","Насколько, по вашему мнению, проблемы со сном мешают вашей повседневной жизни — утомляемость, работоспособность, концентрация, память, настроение и т. п.?"];
+    const hplpQuestions = ["Обсуждаю свои проблемы и сомнения с близкими мне людьми.","Предпочитаю диету с низким содержанием жиров и холестерина.","Описываю любые необычные проявления или симптомы врачу.","Выполняю определённую программу упражнений.","Достаточно сплю.","Чувствую, что я положительно расту и развиваюсь.","С лёгкостью хвалю других за достижения.","Ограничиваю употребление сахара и сахаросодержащих продуктов.","Читаю или слушаю программы про здоровье.","Выполняю серьёзную физическую нагрузку (не менее 20 минут интенсивных занятий) не менее 3 раз в неделю.","Каждый день я нахожу время, для того чтобы расслабиться, отдохнуть.","Верю, что в моей жизни есть цель.","Сохраняю значимые и серьёзные отношения с окружающими.","Съедаю 6—11 порций хлеба, зерновых или цельнозерновых макарон каждый день.","Переспрашиваю специалистов, занимающихся моим здоровьем, для того чтобы понять их инструкции.","Достаточно интенсивно занимаюсь спортом или физической нагрузкой (например, быстро хожу в течение 30—40 минут, пять и более раз в неделю).","Принимаю (в жизни) то, что я не могу изменить.","Смотрю в будущее.","Провожу время с близкими друзьями.","Съедаю 2—4 порции фруктов ежедневно.","Интересуюсь альтернативным мнением по поводу поставленного мне диагноза (прописанного лечения).","Занимаюсь плаванием, или танцами, или езжу на велосипеде в свободное время.","Когда ложусь спать, концентрируюсь на приятных мыслях.","Чувствую себя довольным и умиротворённым.","С лёгкостью проявляю заботу, любовь и тепло по отношению к другим.","Съедаю 3—5 порций овощей ежедневно.","Обсуждаю волнующие меня вопросы о здоровье с разными специалистами.","Делаю силовые упражнения по крайней мере 3 раза в неделю.","Использую специальные техники, чтобы контролировать стресс.","Работаю на долгосрочные цели.","Я нахожу понимание у людей, которые мне дороги, и они также меня понимают.","Съедаю 2—3 порции молока, йогурта или сыра ежедневно.","Обследую своё тело не реже чем раз в месяц на предмет опасных изменений или угрожающих признаков.","Получаю физическую нагрузку в повседневных условиях (например, использую лестницу вместо эскалатора или лифта).","Стараюсь сбалансировать время между работой и отдыхом.","Считаю, что каждый день приносит что-то новое, необычное и требующее усилий.","Нахожу возможности для близких отношений.","Съедаю не более 2—3 порций белковой пищи в день.","Интересуюсь у врачей, как лучше заботиться о своём здоровье.","Замеряю свой пульс во время физических нагрузок.","Провожу 15—20 минут расслабляясь или медитируя ежедневно.","Знаю, что важно для меня в жизни.","Меня поддерживают люди, с которыми я общаюсь.","Читаю этикетку на продуктах, чтобы узнать их состав, соотношение белков, жиров, углеводов и полезных элементов.","Посещаю специальные образовательные программы по здоровью.","Достигаю целевого пульса (необходимой частоты сердечных сокращений), когда тренируюсь.","Замедляюсь, чтобы не слишком уставать.","Чувствую себя связанным с некой силой, большей, чем я сам.","Разрешаю конфликты с помощью дискуссий и компромиссов.","Завтракаю.","Когда необходимо, обращаюсь за помощью и советом.","Открыт для нового опыта и сложных задач."];
+
+    // --- ГЕНЕРАЦИЯ HTML ---
+    function generatePSS() { let html = ''; for (let i = 0; i < pssQuestions.length; i++) { html += `<div class="question"><label>${i + 1}. Как часто за последний месяц ${pssQuestions[i]}</label><div class="options">${[1, 2, 3, 4, 5].map(val => `<label><input type="radio" name="pss${i + 1}" value="${val}" required> ${val} - ${val === 1 ? 'Никогда' : val === 2 ? 'Почти никогда' : val === 3 ? 'Иногда' : val === 4 ? 'Часто' : 'Очень часто'}</label>`).join('')}</div></div>`; } document.getElementById('pss_questions').innerHTML = html; }
+    function generateHADS() { let htmlAnx = ''; hadsAnxietyQuestions.forEach((q, i) => { htmlAnx += `<div class="question"><label>${q.q}</label><div class="options">${q.opts.map((opt, j) => `<label><input type="radio" name="hads_anx${i + 1}" value="${3 - j}" required> ${opt}</label>`).join('')}</div></div>`; }); document.getElementById('hads_anxiety').innerHTML = htmlAnx; let htmlDep = ''; hadsDepressionQuestions.forEach((q, i) => { htmlDep += `<div class="question"><label>${q.q}</label><div class="options">${q.opts.map((opt, j) => `<label><input type="radio" name="hads_dep${i + 1}" value="${j}" required> ${opt}</label>`).join('')}</div></div>`; }); document.getElementById('hads_depression').innerHTML = htmlDep; }
+    function generateISI() { let html = ''; isiQuestions.forEach((q, i) => { html += `<div class="question"><label>${i + 1}. ${q}</label><div class="options">${[0, 1, 2, 3, 4].map(val => `<label><input type="radio" name="isi${i + 1}" value="${val}" required> ${val} - ${val === 0 ? 'Нет' : val === 1 ? 'Лёгкие' : val === 2 ? 'Умеренные' : val === 3 ? 'Сильные' : 'Очень сильные'}</label>`).join('')}</div></div>`; }); document.getElementById('isi_questions').innerHTML = html; }
+    function generateHPLP() { let html = ''; hplpQuestions.forEach((q, i) => { html += `<div class="question"><label>${i + 1}. ${q}</label><div class="options">${[1, 2, 3, 4].map(val => `<label><input type="radio" name="hplp${i + 1}" value="${val}" required> ${val} - ${val === 1 ? 'не согласен' : val === 2 ? 'скорее не согласен' : val === 3 ? 'скорее согласен' : 'полностью согласен'}</label>`).join('')}</div></div>`; }); document.getElementById('hplp_questions').innerHTML = html; }
+    function generatePSQI() {
+        let html = `<div class="question"><label>1. В какое время вы обычно ложились спать?</label><input type="time" name="psqi1" required></div><div class="question"><label>2. Сколько времени вам обычно требовалось, чтобы заснуть? (в минутах)</label><input type="number" name="psqi2" min="0" required></div><div class="question"><label>3. В какое время вы обычно просыпались?</label><input type="time" name="psqi3" required></div><div class="question"><label>4. Сколько часов в среднем вы спали за ночь?</label><input type="number" name="psqi4" step="0.5" min="0" max="24" required></div>`;
+        const psqiSubQuestions = ["не могли уснуть в течение 30 минут","просыпались в середине ночи или рано утром","вставали в туалет","не могли свободно дышать","громко кашляли или храпели","чувствовали, что холодно","чувствовали, что жарко","видели плохие сны","испытывали боль"];
+        html += `<div class="question"><label>5. В течение прошедшего месяца как часто вы имели проблемы со сном, из-за того, что...</label><div style="margin-left: 15px;">`;
+        psqiSubQuestions.forEach((subQ, i) => { let letter = String.fromCharCode(97 + i); html += `<div style="margin-bottom: 10px;"><label>${letter}) ${subQ}</label><div class="options">${[0, 1, 2, 3].map(val => `<label><input type="radio" name="psqi5${letter}" value="${val}" required> ${val === 0 ? 'ни разу' : val === 1 ? 'меньше 1 раза в неделю' : val === 2 ? '1-2 раза в неделю' : '3 и больше раз в неделю'}</label>`).join('')}</div></div>`; });
+        html += `</div></div>`;
+        html += `<div class="question"><label>6. В целом, как вы можете оценить ваш сон за последний месяц?</label><div class="options">${[0, 1, 2, 3].map(val => `<label><input type="radio" name="psqi6" value="${val}" required> ${val === 0 ? 'очень хороший' : val === 1 ? 'хороший' : val === 2 ? 'удовлетворительный' : 'плохой'}</label>`).join('')}</div></div><div class="question"><label>7. Как часто за последний месяц вы принимали лекарства для улучшения сна?</label><div class="options">${[0, 1, 2, 3].map(val => `<label><input type="radio" name="psqi7" value="${val}" required> ${val === 0 ? 'ни разу' : val === 1 ? 'меньше 1 раза в неделю' : val === 2 ? '1-2 раза в неделю' : '3 и больше раз в неделю'}</label>`).join('')}</div></div><div class="question"><label>8. Как часто за последний месяц вам было сложно сохранять достаточный уровень бодрствования за рулем, во время еды или общения с другими людьми?</label><div class="options">${[0, 1, 2, 3].map(val => `<label><input type="radio" name="psqi8" value="${val}" required> ${val === 0 ? 'ни разу' : val === 1 ? 'меньше 1 раза в неделю' : val === 2 ? '1-2 раза в неделю' : '3 и больше раз в неделю'}</label>`).join('')}</div></div><div class="question"><label>9. Насколько сложно в последний месяц вам было сохранять достаточный настрой на то, чтобы выполнять обычные дела (работа, семейные обязанности)?</label><div class="options">${[0, 1, 2, 3].map(val => `<label><input type="radio" name="psqi9" value="${val}" required> ${val === 0 ? 'не сложно' : val === 1 ? 'немного затруднительно' : val === 2 ? 'часто сложно' : 'постоянно сложно'}</label>`).join('')}</div></div><div class="question"><label>10. Есть ли у вас партнер, с которым вы делите постель или сосед по комнате?</label><div class="options"><label><input type="radio" name="psqi10" value="0" required> Нет, проживаю один(на) в комнате</label><label><input type="radio" name="psqi10" value="1" required> Партнер/сосед живут в другой комнате</label><label><input type="radio" name="psqi10" value="2" required> Партнер/сосед в той же комнате, в другой постели</label><label><input type="radio" name="psqi10" value="3" required> Делим одну постель (с партнером)</label></div></div>`;
+        document.getElementById('psqi_questions').innerHTML = html;
+    }
+
+    generatePSS(); generateHADS(); generateISI(); generateHPLP(); generatePSQI();
+
+    // --- ОБРАБОТКА РЕЗУЛЬТАТОВ И ОТПРАВКА ---
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!document.getElementById('consent').checked) { alert("Пожалуйста, подтвердите информированное согласие."); return; }
+        
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        let resultsHTML = '';
+
+        // 1. PSS
+        let pssScore = 0;
+        for (let i = 1; i <= 14; i++) {
+            let val = parseInt(data['pss' + i]);
+            if ([4, 5, 6, 7, 9, 10, 13].includes(i)) { val = 6 - val; }
+            pssScore += val;
+        }
+        let pssInterp = pssScore <= 18 ? "Низкий уровень стресса" : (pssScore <= 37 ? "Средний уровень стресса" : "Высокий уровень стресса");
+        resultsHTML += `<h3>Шкала воспринимаемого стресса (PSS-14)</h3><p>Баллы: <strong>${pssScore}</strong> - ${pssInterp}</p>`;
+        data.pssScore = pssScore; data.pssInterp = pssInterp;
+
+        // 2. HADS
+        let hadsAnxScore = 0, hadsDepScore = 0;
+        for (let i = 1; i <= 7; i++) { hadsAnxScore += parseInt(data['hads_anx' + i] || 0); hadsDepScore += parseInt(data['hads_dep' + i] || 0); }
+        let anxInterp = hadsAnxScore <= 7 ? "Норма" : (hadsAnxScore <= 10 ? "Субклинически выраженная тревога" : "Клинически выраженная тревога");
+        let depInterp = hadsDepScore <= 7 ? "Норма" : (hadsDepScore <= 10 ? "Субклинически выраженная депрессия" : "Клинически выраженная депрессия");
+        resultsHTML += `<h3>HADS</h3><p>Тревога: <strong>${hadsAnxScore}</strong> - ${anxInterp}</p><p>Депрессия: <strong>${hadsDepScore}</strong> - ${depInterp}</p>`;
+        data.hadsAnxScore = hadsAnxScore; data.hadsAnxInterp = anxInterp; data.hadsDepScore = hadsDepScore; data.hadsDepInterp = depInterp;
+
+        // 3. ISI
+        let isiScore = 0;
+        for (let i = 1; i <= 7; i++) { isiScore += parseInt(data['isi' + i] || 0); }
+        let isiInterp = isiScore <= 7 ? "Отсутствие клинически значимой бессонницы" : (isiScore <= 14 ? "Субклиническая бессонница" : (isiScore <= 21 ? "Клинически выраженная бессонница (средняя тяжесть)" : "Клинически выраженная бессонница (тяжелая)"));
+        resultsHTML += `<h3>Индекс тяжести бессонницы (ISI)</h3><p>Баллы: <strong>${isiScore}</strong> - ${isiInterp}</p>`;
+        data.isiScore = isiScore; data.isiInterp = isiInterp;
+
+        // 4. HPLP-II
+        let hplpSum = 0;
+        for (let i = 1; i <= 52; i++) { hplpSum += parseInt(data['hplp' + i] || 0); }
+        let hplpAvg = (hplpSum / 52).toFixed(2);
+        let hplpInterp = hplpAvg < 2.5 ? "Низкий уровень ЗОЖ" : (hplpAvg <= 2.99 ? "Удовлетворительный уровень ЗОЖ" : (hplpAvg <= 3.49 ? "Хороший уровень ЗОЖ" : "Высокий уровень ЗОЖ"));
+        resultsHTML += `<h3>Профиль здорового образа жизни (HPLP-II)</h3><p>Средний балл: <strong>${hplpAvg}</strong> - ${hplpInterp}</p>`;
+        data.hplpAvg = hplpAvg; data.hplpInterp = hplpInterp;
+
+        // 5. PSQI
+        let c1 = parseInt(data['psqi6']);
+        let latencyMin = parseInt(data['psqi2']);
+        let latencyScore = latencyMin <= 15 ? 0 : (latencyMin <= 30 ? 1 : (latencyMin <= 60 ? 2 : 3));
+        let c2 = Math.min(3, latencyScore + parseInt(data['psqi5a']));
+        let sleepHours = parseFloat(data['psqi4']);
+        let c3 = sleepHours > 7 ? 0 : (sleepHours >= 6 ? 1 : (sleepHours >= 5 ? 2 : 3));
+        let time1 = data['psqi1'].split(':'); let time3 = data['psqi3'].split(':');
+        let bedTime = new Date(2000, 0, 1, time1[0], time1[1]); let wakeTime = new Date(2000, 0, 1, time3[0], time3[1]);
+        if (wakeTime < bedTime) { wakeTime.setDate(wakeTime.getDate() + 1); }
+        let timeInBed = (wakeTime - bedTime) / (1000 * 60 * 60);
+        let efficiency = (sleepHours / timeInBed) * 100;
+        let c4 = efficiency > 85 ? 0 : (efficiency >= 75 ? 1 : (efficiency >= 65 ? 2 : 3));
+        let disturbanceSum = 0;
+        for (let i = 1; i <= 9; i++) { let letter = String.fromCharCode(97 + i - 1); disturbanceSum += parseInt(data['psqi5' + letter] || 0); }
+        let c5 = disturbanceSum === 0 ? 0 : (disturbanceSum <= 9 ? 1 : (disturbanceSum <= 18 ? 2 : 3));
+        let c6 = parseInt(data['psqi7']);
+        let daytimeSum = parseInt(data['psqi8']) + parseInt(data['psqi9']);
+        let c7 = daytimeSum === 0 ? 0 : (daytimeSum <= 2 ? 1 : (daytimeSum <= 4 ? 2 : 3));
+        let psqiTotal = c1 + c2 + c3 + c4 + c5 + c6 + c7;
+        let psqiInterp = psqiTotal <= 5 ? "Хорошее качество сна" : "Плохое качество сна (требуется консультация специалиста)";
+        resultsHTML += `<h3>Питтсбургский опросник сна (PSQI)</h3><p>Общий балл: <strong>${psqiTotal}</strong> - ${psqiInterp}</p>`;
+        data.psqiTotal = psqiTotal; data.psqiInterp = psqiInterp;
+
+        // === ОТПРАВКА В GOOGLE ТАБЛИЦУ ===
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxacw5wEMCeqq6FLhAyApTeQLZ37k_fFmCn4jxcZFz_Oasl9XWANJJzJp6Yq3fXr-karQ/exec';
+
+        // Показываем результаты сразу, не дожидаясь ответа сервера
+        document.getElementById('resultsContent').innerHTML = resultsHTML;
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = 'Результаты получены. Данные отправлены.';
+        
+        // Отключаем поля формы
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => input.disabled = true);
+
+        // Отправляем данные
+        fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+        })
+        .then(response => {
+            console.log('Данные успешно отправлены в Google Таблицу');
+        })
+        .catch(error => {
+            console.error('Ошибка отправки:', error);
+            alert('Внимание: произошла ошибка при сохранении данных на сервере, но ваши результаты показаны на экране.');
+        });
+    });
+</script>
+
+</body>
+</html>
